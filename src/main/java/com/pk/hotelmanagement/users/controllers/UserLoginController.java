@@ -22,7 +22,7 @@ public class UserLoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestHeader("Authorization") String header) {
-        String token = userLoginService.createToken(header.substring(6));
+        String token = userLoginService.createToken(header);
         return ResponseEntity.status(HttpStatus.CREATED).body(token);
     }
 

@@ -24,12 +24,15 @@ public class UserLoginService {
 
 
     public String createToken(String header) {
-        String[] loginData = BaseDecoder.decode(header);
+
+        if (!header.startsWith("Basic ")) {
+            throw new IllegalArgumentException("Wrong authorization header");
+        }
+
+        String[] loginData = BaseDecoder.decode(header.substring(6));
         Email email = new Email(loginData[0]);
         String password = loginData[1];
         Optional<User> user = userRegistrationRepository.findById(email);
-
-//        String encodedPass = passwordEncoder.encode(password);
 
         if (user.isEmpty() || !passwordEncoder.matches(password, user.get().getPassword())) {
             throw new UserNotFoundException();
