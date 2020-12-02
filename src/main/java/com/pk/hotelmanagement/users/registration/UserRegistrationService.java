@@ -1,5 +1,6 @@
 package com.pk.hotelmanagement.users.registration;
 
+import com.pk.hotelmanagement.users.Role;
 import com.pk.hotelmanagement.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ public class UserRegistrationService {
             User user = new User();
             user.setEmail(registrationData.getEmail());
             user.setPassword(passwordEncoder.encode(registrationData.getPassword()));
+            user.setRole(Role.USER);
             userRegistrationRepository.save(user);
         }
     }

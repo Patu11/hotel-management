@@ -41,4 +41,9 @@ public class Email implements Serializable {
     public int hashCode() {
         return email.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return this.email;
+    }
 }
