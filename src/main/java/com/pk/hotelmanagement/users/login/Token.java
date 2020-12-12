@@ -16,7 +16,7 @@ public class Token {
 
         return Jwts.builder()
                 .setSubject(user.getEmail().toString())
-                .claim("role", user.getRole().name())
+//                .claim("role", user.getRole().name())
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + 10000))
                 .signWith(key).compact();

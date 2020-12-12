@@ -1,7 +1,7 @@
 package com.pk.hotelmanagement.security;
 
 
-import com.pk.hotelmanagement.users.Role;
+import com.pk.hotelmanagement.users.roles.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

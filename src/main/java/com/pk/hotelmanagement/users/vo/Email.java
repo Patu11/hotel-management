@@ -1,4 +1,4 @@
-package com.pk.hotelmanagement.users;
+package com.pk.hotelmanagement.users.vo;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;

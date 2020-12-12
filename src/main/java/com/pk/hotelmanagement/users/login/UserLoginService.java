@@ -1,6 +1,6 @@
 package com.pk.hotelmanagement.users.login;
 
-import com.pk.hotelmanagement.users.Email;
+import com.pk.hotelmanagement.users.vo.Email;
 import com.pk.hotelmanagement.users.User;
 import com.pk.hotelmanagement.users.registration.UserRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
