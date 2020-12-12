@@ -2,7 +2,7 @@ package com.pk.hotelmanagement.security;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pk.hotelmanagement.users.login.ErrorMessage;
+import com.pk.hotelmanagement.errors.ErrorMessage;
 import com.pk.hotelmanagement.users.login.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
