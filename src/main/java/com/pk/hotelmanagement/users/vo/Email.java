@@ -5,9 +5,10 @@ import java.io.Serializable;
 
 @Embeddable
 public class Email implements Serializable {
-    private String email;
+    private final String email;
 
-    protected Email() {
+    private Email() {
+        this.email = null;
     }
 
     public Email(String email) {

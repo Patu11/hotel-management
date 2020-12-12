@@ -1,5 +1,6 @@
 package com.pk.hotelmanagement.users;
 
+import com.pk.hotelmanagement.reservations.Reservation;
 import com.pk.hotelmanagement.users.registration.persons.Person;
 import com.pk.hotelmanagement.users.roles.RoleEntity;
 import com.pk.hotelmanagement.users.vo.Email;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,6 +35,10 @@ public class User {
     @Setter(AccessLevel.NONE)
     private Person person;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter(AccessLevel.NONE)
+    private List<Reservation> reservations = new ArrayList<>();
+
     public void setRole(RoleEntity role) {
         if (role == null) {
             if (this.role != null) {
@@ -52,6 +59,16 @@ public class User {
             person.setUser(this);
         }
         this.person = person;
+    }
+
+    public void addReservation(Reservation reservation) {
+        reservations.add(reservation);
+        reservation.setUser(this);
+    }
+
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+        reservation.setUser(null);
     }
 
     @Override

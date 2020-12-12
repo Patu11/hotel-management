@@ -10,7 +10,7 @@ import javax.persistence.Transient;
 @Embeddable
 public class Address {
     @Column(nullable = false)
-    private String address;
+    private final String address;
     @Transient
     private String houseNr;
     @Transient
@@ -28,7 +28,12 @@ public class Address {
         this.address = allInOne;
     }
 
-    protected Address() {
+    private Address() {
+        this.address = null;
+        this.houseNr = null;
+        this.street = null;
+        this.town = null;
+        this.postCode = null;
     }
 
     private void verify(String address) {

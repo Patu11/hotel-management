@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pk.hotelmanagement.errors.ErrorMessage;
 import com.pk.hotelmanagement.users.login.Token;
+import com.pk.hotelmanagement.users.vo.Email;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -44,7 +45,7 @@ public class JWTFilter extends OncePerRequestFilter {
         Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(Token.key).build().parseClaimsJws(header);
         String email = claimsJws.getBody().getSubject();
         String role = claimsJws.getBody().get("role").toString();
-        return new UsernamePasswordAuthenticationToken(email, null, Collections.singleton(new SimpleGrantedAuthority(role)));
+        return new UsernamePasswordAuthenticationToken(new Email(email), null, Collections.singleton(new SimpleGrantedAuthority(role)));
     }
 
     private String getStatusAsJson() throws JsonProcessingException {
