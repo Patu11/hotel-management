@@ -30,9 +30,4 @@ public class HotelService {
         }
         return hotel.get();
     }
-
-    public void updateHotel(Hotel hotel) {
-        hotelRepository.save(hotel);
-    }
-
 }
