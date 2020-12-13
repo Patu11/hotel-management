@@ -1,131 +1,245 @@
 {
-	"info": {
-		"_postman_id": "e63a525a-ee05-42d2-885b-c77ce89574af",
-		"name": "hotel",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "registration",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"password\",\n    \"name\": \"Jan\",\n    \"surname\": \"Kowalski\",\n    \"phoneNumber\": 123456789,\n    \"birthdate\": \"1990-01-01\",\n    \"address\": \"20;Szkolna;Krakow;54-432\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/users/register",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b1c64564-53b5-4561-9906-52a9a05e6b55",
-						"exec": [
-							"var token = responseBody",
-							"postman.setEnvironmentVariable(\"authorizationHeader\", token);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "password",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "test@test.com",
-							"type": "string"
-						},
-						{
-							"key": "saveHelperData",
-							"type": "any"
-						},
-						{
-							"key": "showPassword",
-							"value": false,
-							"type": "boolean"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/users/login",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "create reservation",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{authorizationHeader}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"roomIds\": [\n        10,20\n    ],\n    \"interval\": {\n        \"startDate\": \"2020-07-07\",\n        \"endDate\": \"2020-08-05\"\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/reservations",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"reservations"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"protocolProfileBehavior": {}
+  "info": {
+    "_postman_id": "47586395-6beb-4351-8a9d-b22938621547",
+    "name": "hotel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "registration",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"test4@test.com\",\n    \"password\": \"password2\",\n    \"name\": \"Jan\",\n    \"surname\": \"Kowalski\",\n    \"phoneNr\": 123456789,\n    \"birthdate\": \"1990-01-01\",\n    \"address\": \"20;Szkolna;Krakow;54-432\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/users/register",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "fa083487-c2a8-4d06-9289-962b4b2f97ff",
+            "exec": [
+              "var token = responseBody",
+              "postman.setEnvironmentVariable(\"authorizationHeader\", token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "password",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "test@test.com",
+              "type": "string"
+            },
+            {
+              "key": "saveHelperData",
+              "type": "any"
+            },
+            {
+              "key": "showPassword",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "localhost:8080/users/login",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create reservation",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authorizationHeader}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"roomIds\": [\n        10,20\n    ],\n    \"interval\": {\n        \"startDate\": \"2020-07-07\",\n        \"endDate\": \"2020-08-05\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8080/reservations",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add room",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"hotelId\":2,\r\n    \"numberOfPeople\":3,\r\n    \"price\":10.5,\r\n    \"description\":\"Apartment\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/rooms",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "rooms"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add storage",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"hotelId\":1,\r\n    \"address\":\"Krakow\",\r\n    \"capacity\":10.0\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/storages",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "storages"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add hotel",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"address\":\"Strusia 12, Krakow\",\r\n    \"numberOfRooms\":50,\r\n    \"numberOfStars\":5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/hotel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "hotel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete reservation",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authorizationHeader}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/3",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            "3"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
 }
