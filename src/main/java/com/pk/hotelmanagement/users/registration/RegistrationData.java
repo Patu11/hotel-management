@@ -28,7 +28,7 @@ public class RegistrationData {
     private String surname;
 
     @NotNull
-    private int phoneNumber;
+    private int phoneNr;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")

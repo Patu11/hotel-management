@@ -6,6 +6,7 @@ import com.pk.hotelmanagement.users.registration.UserRegistrationService;
 import com.pk.hotelmanagement.users.vo.Email;
 import com.pk.hotelmanagement.users.vo.Price;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,5 +30,12 @@ public class ReservationService {
         Email principalEmail = SecurityConfig.getPrincipal();
         User user = userService.getUserByEmail(principalEmail);
         user.addReservation(reservation);
+    }
+
+    @Transactional
+    public void deleteReservation(int reservationId) {
+        if (reservationRepository.findById(reservationId).isPresent()) {
+            reservationRepository.deleteById(reservationId);
+        }
     }
 }

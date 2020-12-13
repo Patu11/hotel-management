@@ -1,5 +1,3 @@
-CREATE TABLE user (email VARCHAR(100) PRIMARY KEY,  password varchar(1000) NOT NULL, role varchar(100) NOT NULL);
-
 CREATE TABLE hotel(
                     hotel_id INT NOT NULL AUTO_INCREMENT ,
                     address VARCHAR(1000) NOT NULL,
