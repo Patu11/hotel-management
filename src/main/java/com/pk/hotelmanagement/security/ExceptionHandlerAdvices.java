@@ -1,6 +1,6 @@
 package com.pk.hotelmanagement.security;
 
-import com.pk.hotelmanagement.users.login.ErrorMessage;
+import com.pk.hotelmanagement.errors.ErrorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

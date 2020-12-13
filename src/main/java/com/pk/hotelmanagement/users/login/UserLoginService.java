@@ -1,6 +1,7 @@
 package com.pk.hotelmanagement.users.login;
 
-import com.pk.hotelmanagement.users.Email;
+import com.pk.hotelmanagement.users.login.exceptions.UserNotFoundException;
+import com.pk.hotelmanagement.users.vo.Email;
 import com.pk.hotelmanagement.users.User;
 import com.pk.hotelmanagement.users.registration.UserRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import java.util.Optional;
 @Service
 public class UserLoginService {
 
-    private UserRegistrationRepository userRegistrationRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRegistrationRepository userRegistrationRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserLoginService(UserRegistrationRepository userRegistrationRepository, PasswordEncoder passwordEncoder) {

@@ -1,4 +1,4 @@
-package com.pk.hotelmanagement.users.login;
+package com.pk.hotelmanagement.errors;
 
 import lombok.Getter;
 import lombok.Setter;
