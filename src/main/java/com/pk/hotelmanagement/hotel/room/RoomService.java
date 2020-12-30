@@ -2,8 +2,11 @@ package com.pk.hotelmanagement.hotel.room;
 
 import com.pk.hotelmanagement.hotel.Hotel;
 import com.pk.hotelmanagement.hotel.HotelService;
+import com.pk.hotelmanagement.hotel.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -27,5 +30,13 @@ public class RoomService {
         hotel.addRoom(room);
 
         roomRepository.save(room);
+    }
+
+    public Room getRoom(int roomId) {
+        Optional<Room> room = roomRepository.findById(roomId);
+        if (room.isEmpty()) {
+            throw new NotFoundException("Room not found");
+        }
+        return room.get();
     }
 }

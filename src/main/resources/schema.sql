@@ -24,6 +24,17 @@ CREATE TABLE storage(
                     PRIMARY KEY (storage_id)
 );
 
+CREATE TABLE photo (
+                              photo_id INTEGER NOT NULL AUTO_INCREMENT,
+                              room_id INTEGER NOT NULL,
+                              url VARCHAR(500) NOT NULL,
+                              pic BLOB NOT NULL,
+                              creation_date DATE NOT NULL,
+                              PRIMARY KEY (photo_id)
+);
+
+ALTER TABLE photo ADD CONSTRAINT fk_room_photo FOREIGN KEY (room_id) REFERENCES room(room_id);
+
 ALTER TABLE room ADD CONSTRAINT fk_hotel_room FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id);
 
 ALTER TABLE storage ADD CONSTRAINT fk_hotel_storage FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id);
