@@ -30,9 +30,28 @@ public class UserRegistrationService {
     @Transactional
     public void register(RegistrationData registrationData) {
         if (!exists(registrationData)) {
-            User user = createUser(registrationData);
+            User user = createUser(registrationData, Role.USER);
             userRegistrationRepository.save(user);
             regularClientService.createAndAssignToUser(user);
+        }
+    }
+
+    @Transactional
+    public void registerEmployee(RegistrationData registrationData, Person person) {
+        if (!exists(registrationData)) {
+            User user = createUser(registrationData, Role.EMPLOYEE, person);
+            userRegistrationRepository.saveAndFlush(user); // flush to force insert to get person id
+        }
+    }
+
+    @Transactional
+    public void registerAdmin(Email email, String password) {
+        if (!existsByEmail(email)) {
+            User admin = new User();
+            admin.setEmail(email);
+            admin.setPassword(passwordEncoder.encode(password));
+            admin.setRole(createRole(Role.ADMIN));
+            userRegistrationRepository.save(admin);
         }
     }
 
@@ -42,13 +61,23 @@ public class UserRegistrationService {
                 () -> new UserNotFoundException("User with email " + email.toString() + " does not exist"));
     }
 
-    private User createUser(RegistrationData registrationData) {
+    private User createUser(RegistrationData registrationData, Role role) {
         User user = new User();
         user.setEmail(registrationData.getEmail());
         user.setPassword(passwordEncoder.encode(registrationData.getPassword()));
         user.setRegular(false);
-        user.setRole(createRole());
+        user.setRole(createRole(role));
         user.setPerson(createPerson(registrationData));
+        return user;
+    }
+
+    private User createUser(RegistrationData registrationData, Role role, Person person) {
+        User user = new User();
+        user.setEmail(registrationData.getEmail());
+        user.setPassword(passwordEncoder.encode(registrationData.getPassword()));
+        user.setRegular(false);
+        user.setRole(createRole(role));
+        user.setPerson(person);
         return user;
     }
 
@@ -63,9 +92,14 @@ public class UserRegistrationService {
         return user.isPresent();
     }
 
-    private RoleEntity createRole() {
+    private boolean existsByEmail(Email email) {
+        Optional<User> user = userRegistrationRepository.findById(email);
+        return user.isPresent();
+    }
+
+    private RoleEntity createRole(Role role) {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setName(Role.USER);
+        roleEntity.setName(role);
         return roleEntity;
     }
 
