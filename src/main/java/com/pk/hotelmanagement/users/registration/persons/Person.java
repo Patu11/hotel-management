@@ -26,7 +26,7 @@ public class Person {
     private Date birthdate;
     @Embedded
     private Address address;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "email", referencedColumnName = "email")
     private User user;
 }

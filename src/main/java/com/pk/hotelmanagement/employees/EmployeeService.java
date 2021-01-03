@@ -42,6 +42,13 @@ public class EmployeeService {
         return repository.getEmployeeById(id);
     }
 
+    @Transactional
+    public void removeEmployee(int id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        }
+    }
+
     private Employee createEmployee(EmployeeRegistrationData registrationData) {
         Employee employee = new Employee();
         employee.setPosition(registrationData.getPosition());
