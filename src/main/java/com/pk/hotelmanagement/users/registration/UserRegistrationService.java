@@ -41,6 +41,8 @@ public class UserRegistrationService {
         if (!exists(registrationData)) {
             User user = createUser(registrationData, Role.EMPLOYEE, person);
             userRegistrationRepository.saveAndFlush(user); // flush to force insert to get person id
+        } else {
+            throw new IllegalArgumentException("User already exists");
         }
     }
 

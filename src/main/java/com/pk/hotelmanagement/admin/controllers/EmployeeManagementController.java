@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/admin")
 public class EmployeeManagementController {
@@ -22,7 +24,7 @@ public class EmployeeManagementController {
     }
 
     @PostMapping("/employees")
-    public ResponseEntity<?> addEmployee(@RequestBody EmployeeRegistrationData registrationData) {
+    public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeeRegistrationData registrationData) {
         employeeService.addEmployee(registrationData);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
