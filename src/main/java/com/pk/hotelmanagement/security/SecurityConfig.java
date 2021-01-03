@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rooms").permitAll()   //for testing purposes
                 .antMatchers("/storages").permitAll()//for testing purposes
                 .antMatchers("/reservations", "/reservations/*").hasAuthority(Role.USER.name())
-                .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/admin", "/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(), BasicAuthenticationFilter.class);

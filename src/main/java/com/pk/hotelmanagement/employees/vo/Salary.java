@@ -1,10 +1,12 @@
 package com.pk.hotelmanagement.employees.vo;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
 public class Salary implements Serializable {
+    @Column
     private final double salary;
 
     private Salary() {
@@ -16,5 +18,9 @@ public class Salary implements Serializable {
             throw new IllegalArgumentException("Salary can not be less than 0");
         }
         this.salary = salary;
+    }
+
+    public double getAsDouble() {
+        return this.salary;
     }
 }

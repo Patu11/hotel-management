@@ -1,10 +1,12 @@
 package com.pk.hotelmanagement.users.vo;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
 public class Email implements Serializable {
+    @Column
     private final String email;
 
     private Email() {
@@ -26,6 +28,10 @@ public class Email implements Serializable {
     private boolean isEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
+    }
+
+    public String getAsString() {
+        return this.email;
     }
 
     @Override

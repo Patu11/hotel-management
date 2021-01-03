@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class EmployeeService {
     private final EmployeeRepository repository;
@@ -28,6 +30,16 @@ public class EmployeeService {
         Employee employee = createEmployee(employeeRegistrationData);
         employee.setPerson(userRegistrationService.getUserByEmail(employeeRegistrationData.getEmail()).getPerson()); // to get updated value of person id
         repository.save(employee);
+    }
+
+    @Transactional(readOnly = true)
+    public List<EmployeeDto> getAllEmployees() {
+        return repository.getAllEmployees();
+    }
+
+    @Transactional(readOnly = true)
+    public EmployeeDto getEmployee(int id) {
+        return repository.getEmployeeById(id);
     }
 
     private Employee createEmployee(EmployeeRegistrationData registrationData) {
