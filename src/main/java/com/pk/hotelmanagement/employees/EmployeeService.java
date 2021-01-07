@@ -4,9 +4,11 @@ import com.pk.hotelmanagement.employees.schedule.Schedule;
 import com.pk.hotelmanagement.employees.schedule.ScheduleData;
 import com.pk.hotelmanagement.employees.schedule.ScheduleDto;
 import com.pk.hotelmanagement.hotel.NotFoundException;
+import com.pk.hotelmanagement.security.SecurityConfig;
 import com.pk.hotelmanagement.users.registration.RegistrationData;
 import com.pk.hotelmanagement.users.registration.UserRegistrationService;
 import com.pk.hotelmanagement.users.registration.persons.Person;
+import com.pk.hotelmanagement.users.vo.Email;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +58,7 @@ public class EmployeeService {
 
     @Transactional
     public void addScheduleToEmployee(ScheduleData scheduleData) {
-        Employee employee = findEmployee(scheduleData.getEmployeeId());
+        Employee employee = findEmployeeById(scheduleData.getEmployeeId());
         employee.addSchedule(createScheduleFromScheduleData(scheduleData));
     }
 
@@ -75,6 +77,11 @@ public class EmployeeService {
         repository.deleteScheduleById(scheduleId);
     }
 
+    public List<ScheduleDto> getAllCurrentSchedulesForEmployee() {
+        Email employeeEmail = SecurityConfig.getPrincipal();
+        return repository.getAllCurrentSchedulesForEmployeeByEmail(employeeEmail);
+    }
+
     private Employee createEmployee(EmployeeRegistrationData registrationData) {
         Employee employee = new Employee();
         employee.setPosition(registrationData.getPosition());
@@ -88,7 +95,7 @@ public class EmployeeService {
         return person;
     }
 
-    private Employee findEmployee(int employeeId) {
+    private Employee findEmployeeById(int employeeId) {
         Optional<Employee> employee = repository.findById(employeeId);
         return employee.orElseThrow(() -> new NotFoundException("Employee not found with id: " + employeeId));
     }

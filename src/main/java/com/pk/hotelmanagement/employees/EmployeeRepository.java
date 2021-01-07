@@ -1,6 +1,7 @@
 package com.pk.hotelmanagement.employees;
 
 import com.pk.hotelmanagement.employees.schedule.ScheduleDto;
+import com.pk.hotelmanagement.users.vo.Email;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("DELETE FROM Schedule s WHERE s.id = :id")
     @Modifying
     void deleteScheduleById(int id);
+
+    @Query("SELECT new com.pk.hotelmanagement.employees.schedule.ScheduleDto(s.id, e.id, s.startDate, s.endDate) FROM Schedule s JOIN s.employee e JOIN e.person p JOIN p.user u WHERE u.email = :email")
+    List<ScheduleDto> getAllCurrentSchedulesForEmployeeByEmail(Email email);
 }
