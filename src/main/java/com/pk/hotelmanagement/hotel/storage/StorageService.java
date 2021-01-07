@@ -2,10 +2,13 @@ package com.pk.hotelmanagement.hotel.storage;
 
 import com.pk.hotelmanagement.hotel.Hotel;
 import com.pk.hotelmanagement.hotel.HotelService;
+import com.pk.hotelmanagement.hotel.NotFoundException;
+import com.pk.hotelmanagement.hotel.room.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class StorageService {
@@ -29,5 +32,14 @@ public class StorageService {
         hotel.addStorage(storage);
 
         storageRepository.save(storage);
+    }
+
+    @Transactional
+    public Storage getStorage(int storageId) {
+        Optional<Storage> storage = storageRepository.findById(storageId);
+        if (storage.isEmpty()) {
+            throw new NotFoundException("Storage not found");
+        }
+        return storage.get();
     }
 }

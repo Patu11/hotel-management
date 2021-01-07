@@ -33,6 +33,17 @@ CREATE TABLE photo (
                               PRIMARY KEY (photo_id)
 );
 
+CREATE TABLE product(
+    product_id INTEGER NOT NULL AUTO_INCREMENT,
+    storage_id INTEGER NOT NULL,
+    name VARCHAR(500) NOT NULL,
+    amount INTEGER,
+    expiration_date DATE,
+    PRIMARY KEY (product_id)
+);
+
+ALTER TABLE product ADD CONSTRAINT fk_storage_product FOREIGN KEY (storage_id) REFERENCES storage(storage_id);
+
 ALTER TABLE photo ADD CONSTRAINT fk_room_photo FOREIGN KEY (room_id) REFERENCES room(room_id);
 
 ALTER TABLE room ADD CONSTRAINT fk_hotel_room FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id);
