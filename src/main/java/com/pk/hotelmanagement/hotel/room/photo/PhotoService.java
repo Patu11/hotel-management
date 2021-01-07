@@ -35,7 +35,6 @@ public class PhotoService {
         Photo photo = new Photo();
 
         byte[] image = file.getBytes();
-        
         photo.setUrl(createUrl(image));
         photo.setPic(image);
         photo.setCreationDate(new Date());
