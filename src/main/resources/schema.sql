@@ -68,7 +68,7 @@ CREATE TABLE regular_clients
     number_of_reservations     INTEGER      NOT NULL,
     regular_customer_threshold INTEGER      NOT NULL,
     discount                   float        NOT NULL,
-    PRIMARY KEY(email)
+    PRIMARY KEY (email)
 );
 
 CREATE TABLE reservations
@@ -87,6 +87,14 @@ CREATE TABLE employees
     salary   double       NOT NULL,
     PRIMARY KEY (id)
 );
+CREATE TABLE schedules
+(
+    id          INTEGER AUTO_INCREMENT,
+    employee_id INTEGER NOT NULL,
+    start_date  DATETIME    NOT NULL,
+    end_Date    DATETIME    NOT NULL,
+    PRIMARY KEY (id)
+);
 
 ALTER TABLE roles
     ADD CONSTRAINT fk_email FOREIGN KEY (email) REFERENCES users (email);
@@ -99,3 +107,7 @@ ALTER TABLE regular_clients
 
 ALTER TABLE reservations
     ADD CONSTRAINT fk_email_reservations_users FOREIGN KEY (email) REFERENCES users (email);
+ALTER TABLE employees
+    ADD CONSTRAINT fk_id_person_id FOREIGN KEY (id) REFERENCES persons (person_id);
+ALTER TABLE schedules
+    ADD CONSTRAINT fk_schedules_id_employee_id FOREIGN KEY (employee_id) REFERENCES employees (id);

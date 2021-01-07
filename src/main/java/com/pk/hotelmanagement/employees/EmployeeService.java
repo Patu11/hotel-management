@@ -1,5 +1,8 @@
 package com.pk.hotelmanagement.employees;
 
+import com.pk.hotelmanagement.employees.schedule.Schedule;
+import com.pk.hotelmanagement.employees.schedule.ScheduleData;
+import com.pk.hotelmanagement.hotel.NotFoundException;
 import com.pk.hotelmanagement.users.registration.RegistrationData;
 import com.pk.hotelmanagement.users.registration.UserRegistrationService;
 import com.pk.hotelmanagement.users.registration.persons.Person;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -49,6 +53,12 @@ public class EmployeeService {
         }
     }
 
+    @Transactional
+    public void addScheduleToEmployee(ScheduleData scheduleData) {
+        Employee employee = findEmployee(scheduleData.getEmployeeId());
+        employee.addSchedule(createScheduleFromScheduleData(scheduleData));
+    }
+
     private Employee createEmployee(EmployeeRegistrationData registrationData) {
         Employee employee = new Employee();
         employee.setPosition(registrationData.getPosition());
@@ -60,5 +70,17 @@ public class EmployeeService {
         Person person = new Person();
         BeanUtils.copyProperties(registrationData, person);
         return person;
+    }
+
+    private Employee findEmployee(int employeeId) {
+        Optional<Employee> employee = repository.findById(employeeId);
+        return employee.orElseThrow(() -> new NotFoundException("Employee not found with id: " + employeeId));
+    }
+
+    private Schedule createScheduleFromScheduleData(ScheduleData scheduleData) {
+        Schedule schedule = new Schedule();
+        schedule.setStartDate(scheduleData.getInterval().getStartDate());
+        schedule.setEndDate(scheduleData.getInterval().getEndDate());
+        return schedule;
     }
 }
