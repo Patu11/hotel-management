@@ -47,22 +47,4 @@ public class EmployeeManagementController {
         employeeService.removeEmployee(id);
         return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/employees/schedules")
-    public ResponseEntity<?> createScheduleForGivenEmployee(@RequestBody ScheduleData scheduleData) {
-        employeeService.addScheduleToEmployee(scheduleData);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @GetMapping("/employees/schedules")
-    public ResponseEntity<?> getExistingSchedules() {
-        List<ScheduleDto> allSchedules = employeeService.getAllExistingSchedules();
-        return ResponseEntity.ok(allSchedules);
-    }
-
-    @GetMapping("/employees/schedules/current")
-    public ResponseEntity<?> getAllCurrentSchedules() {
-        List<ScheduleDto> currentSchedules = employeeService.getAllCurrentSchedules();
-        return ResponseEntity.ok(currentSchedules);
-    }
 }

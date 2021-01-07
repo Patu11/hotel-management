@@ -70,6 +70,11 @@ public class EmployeeService {
         return  repository.getAllCurrentSchedules();
     }
 
+    @Transactional
+    public void deleteSchedule(int scheduleId) {
+        repository.deleteScheduleById(scheduleId);
+    }
+
     private Employee createEmployee(EmployeeRegistrationData registrationData) {
         Employee employee = new Employee();
         employee.setPosition(registrationData.getPosition());
