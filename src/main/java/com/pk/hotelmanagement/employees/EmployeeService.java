@@ -2,6 +2,7 @@ package com.pk.hotelmanagement.employees;
 
 import com.pk.hotelmanagement.employees.schedule.Schedule;
 import com.pk.hotelmanagement.employees.schedule.ScheduleData;
+import com.pk.hotelmanagement.employees.schedule.ScheduleDto;
 import com.pk.hotelmanagement.hotel.NotFoundException;
 import com.pk.hotelmanagement.users.registration.RegistrationData;
 import com.pk.hotelmanagement.users.registration.UserRegistrationService;
@@ -57,6 +58,16 @@ public class EmployeeService {
     public void addScheduleToEmployee(ScheduleData scheduleData) {
         Employee employee = findEmployee(scheduleData.getEmployeeId());
         employee.addSchedule(createScheduleFromScheduleData(scheduleData));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleDto> getAllExistingSchedules() {
+        return  repository.getAllSchedules();
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleDto> getAllCurrentSchedules() {
+        return  repository.getAllCurrentSchedules();
     }
 
     private Employee createEmployee(EmployeeRegistrationData registrationData) {

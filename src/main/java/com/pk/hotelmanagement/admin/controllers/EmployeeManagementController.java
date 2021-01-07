@@ -4,6 +4,7 @@ import com.pk.hotelmanagement.employees.EmployeeDto;
 import com.pk.hotelmanagement.employees.EmployeeRegistrationData;
 import com.pk.hotelmanagement.employees.EmployeeService;
 import com.pk.hotelmanagement.employees.schedule.ScheduleData;
+import com.pk.hotelmanagement.employees.schedule.ScheduleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +52,17 @@ public class EmployeeManagementController {
     public ResponseEntity<?> createScheduleForGivenEmployee(@RequestBody ScheduleData scheduleData) {
         employeeService.addScheduleToEmployee(scheduleData);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/employees/schedules")
+    public ResponseEntity<?> getExistingSchedules() {
+        List<ScheduleDto> allSchedules = employeeService.getAllExistingSchedules();
+        return ResponseEntity.ok(allSchedules);
+    }
+
+    @GetMapping("/employees/schedules/current")
+    public ResponseEntity<?> getAllCurrentSchedules() {
+        List<ScheduleDto> currentSchedules = employeeService.getAllCurrentSchedules();
+        return ResponseEntity.ok(currentSchedules);
     }
 }
