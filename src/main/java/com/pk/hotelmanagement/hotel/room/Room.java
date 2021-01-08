@@ -1,6 +1,7 @@
 package com.pk.hotelmanagement.hotel.room;
 
 import com.pk.hotelmanagement.hotel.Hotel;
+import com.pk.hotelmanagement.hotel.room.comment.Comment;
 import com.pk.hotelmanagement.hotel.room.photo.Photo;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,19 @@ public class Room {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
     private List<Photo> photos = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setRoom(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setRoom(null);
+    }
 
     public void addPhoto(Photo photo) {
         photos.add(photo);

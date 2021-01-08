@@ -42,6 +42,17 @@ CREATE TABLE product(
     PRIMARY KEY (product_id)
 );
 
+CREATE TABLE comment(
+    comment_id INTEGER NOT NULL AUTO_INCREMENT,
+    room_id INTEGER NOT NULL,
+    content VARCHAR(1000) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    rating INTEGER NOT NULL,
+    PRIMARY KEY (comment_id)
+);
+
+ALTER TABLE comment ADD CONSTRAINT fk_room_comment FOREIGN KEY (room_id) REFERENCES room(room_id);
+
 ALTER TABLE product ADD CONSTRAINT fk_storage_product FOREIGN KEY (storage_id) REFERENCES storage(storage_id);
 
 ALTER TABLE photo ADD CONSTRAINT fk_room_photo FOREIGN KEY (room_id) REFERENCES room(room_id);
