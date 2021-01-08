@@ -28,16 +28,9 @@ public class Hotel {
     @Column(name = "num_of_stars")
     private int numberOfStars;
 
-    //    @OneToMany(fetch = FetchType.LAZY)
-    //    @JoinColumn(name = "room_id")
-    //    @JoinColumn(name = "fk_hotel_room")
-//    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
     private List<Room> rooms = new ArrayList<>();
 
-    //    @OneToMany(fetch = FetchType.LAZY)
-    //    @JoinColumn(name = "storage_id")
-    //    @JoinColumn(name = "fk_hotel_storage")
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Storage> storages = new ArrayList<>();
 

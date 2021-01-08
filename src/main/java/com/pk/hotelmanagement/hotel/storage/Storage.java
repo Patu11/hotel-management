@@ -1,10 +1,14 @@
 package com.pk.hotelmanagement.hotel.storage;
 
 import com.pk.hotelmanagement.hotel.Hotel;
+import com.pk.hotelmanagement.hotel.room.photo.Photo;
+import com.pk.hotelmanagement.hotel.storage.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +29,19 @@ public class Storage {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "storage")
+    private List<Product> products = new ArrayList<>();
+
+    public void addProduct(Product product) {
+        products.add(product);
+        product.setStorage(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.setStorage(null);
+    }
 
     @Override
     public boolean equals(Object o) {

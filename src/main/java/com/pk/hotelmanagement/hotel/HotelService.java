@@ -3,6 +3,7 @@ package com.pk.hotelmanagement.hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,7 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
+    @Transactional
     public void createHotel(HotelData hotelData) {
         Hotel hotel = new Hotel();
         hotel.setAddress(hotelData.getAddress());
@@ -23,6 +25,7 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
+    @Transactional
     public Hotel getHotel(int hotelId) {
         Optional<Hotel> hotel = hotelRepository.findById(hotelId);
         if (hotel.isEmpty()) {

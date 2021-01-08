@@ -1,10 +1,14 @@
 package com.pk.hotelmanagement.hotel.room;
 
 import com.pk.hotelmanagement.hotel.Hotel;
+import com.pk.hotelmanagement.hotel.room.comment.Comment;
+import com.pk.hotelmanagement.hotel.room.photo.Photo;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +35,32 @@ public class Room {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
+    private List<Photo> photos = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setRoom(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setRoom(null);
+    }
+
+    public void addPhoto(Photo photo) {
+        photos.add(photo);
+        photo.setRoom(this);
+    }
+
+    public void removePhoto(Photo photo) {
+        photos.remove(photo);
+        photo.setRoom(null);
+    }
 
     @Override
     public boolean equals(Object o) {
