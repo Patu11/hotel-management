@@ -1,5 +1,8 @@
 package com.pk.hotelmanagement.reservations;
 
+import com.pk.hotelmanagement.hotel.room.Room;
+import com.pk.hotelmanagement.hotel.room.comment.Comment;
+import com.pk.hotelmanagement.hotel.room.photo.Photo;
 import com.pk.hotelmanagement.users.vo.Price;
 import com.pk.hotelmanagement.users.User;
 import lombok.AccessLevel;
@@ -7,7 +10,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +36,19 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "email")
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
+    private List<Room> rooms = new ArrayList<>();
+
+    public void addRoom(Room room) {
+        rooms.add(room);
+        room.setReservation(this);
+    }
+
+    public void removeRoom(Room room) {
+        rooms.remove(room);
+        room.setReservation(null);
+    }
 
     @Override
     public boolean equals(Object o) {

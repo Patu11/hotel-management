@@ -26,7 +26,7 @@ public class ReservationService {
         Reservation reservation = new Reservation();
         reservation.setStartDate(reservationData.getInterval().getStartDate());
         reservation.setEndDate(reservationData.getInterval().getEndDate());
-        reservation.setPrice(new Price(10)); // TODO: SET BASED ON LIST OF RESERVED ROOMS
+        reservation.setPrice(new Price(reservationRepository.getRoomsPriceById(reservationData.getRoomIds()))); // TODO: SET BASED ON LIST OF RESERVED ROOMS
         Email principalEmail = SecurityConfig.getPrincipal();
         User user = userService.getUserByEmail(principalEmail);
         user.addReservation(reservation);

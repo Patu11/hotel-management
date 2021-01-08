@@ -3,6 +3,7 @@ package com.pk.hotelmanagement.hotel.room;
 import com.pk.hotelmanagement.hotel.Hotel;
 import com.pk.hotelmanagement.hotel.room.comment.Comment;
 import com.pk.hotelmanagement.hotel.room.photo.Photo;
+import com.pk.hotelmanagement.reservations.Reservation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,6 +36,10 @@ public class Room {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservation;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
     private List<Photo> photos = new ArrayList<>();
