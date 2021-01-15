@@ -37,9 +37,8 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reservation_id")
-    private Reservation reservation;
+    @ManyToMany(mappedBy = "rooms")
+    private List<Reservation> reservations;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
     private List<Photo> photos = new ArrayList<>();

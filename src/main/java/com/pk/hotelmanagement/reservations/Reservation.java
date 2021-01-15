@@ -37,17 +37,31 @@ public class Reservation {
     @JoinColumn(name = "email")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "room_reservation",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id")
+    )
     private List<Room> rooms = new ArrayList<>();
 
     public void addRoom(Room room) {
         rooms.add(room);
-        room.setReservation(this);
+        room.getReservations().add(this);
+    }
+
+    public void addRooms(List<Room> roomList) {
+        rooms.addAll(roomList);
+        for (Room r : roomList) {
+            r.getReservations().add(this);
+        }
     }
 
     public void removeRoom(Room room) {
         rooms.remove(room);
-        room.setReservation(null);
+        room.getReservations().remove(this);
     }
 
     @Override

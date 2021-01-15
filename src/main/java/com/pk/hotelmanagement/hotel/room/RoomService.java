@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,5 +42,14 @@ public class RoomService {
             throw new NotFoundException("Room not found");
         }
         return room.get();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<Room> getRoomsById(List<Integer> roomsId) {
+        List<Room> rooms = roomRepository.findAllById(roomsId);
+        if (rooms.isEmpty()) {
+            throw new NotFoundException("Rooms not found");
+        }
+        return roomRepository.findAllById(roomsId);
     }
 }
