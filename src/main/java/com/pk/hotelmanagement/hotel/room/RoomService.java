@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,11 @@ public class RoomService {
             throw new NotFoundException("Room not found");
         }
         return room.get();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<RoomDTO> getAvailableRooms(Date startDate, Date endDate) {
+        return roomRepository.getAvailableRooms(startDate, endDate);
     }
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)

@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/register").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/hotel").permitAll()  //for testing purposes
-                .antMatchers("/rooms").permitAll()   //for testing purposes
+                .antMatchers("/rooms", "/rooms/*").permitAll()   //for testing purposes
                 .antMatchers("/storages").permitAll()//for testing purposes
                 .antMatchers("/photo").permitAll()//for testing purposes
                 .antMatchers("/hello").hasAuthority(Role.USER.name())
