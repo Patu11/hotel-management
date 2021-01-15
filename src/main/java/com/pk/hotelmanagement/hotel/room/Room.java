@@ -26,10 +26,7 @@ public class Room {
 
     @Column(nullable = false)
     private double price;
-
-    @Column(nullable = false)
-    private boolean status;
-
+    
     @Column
     private String description;
 

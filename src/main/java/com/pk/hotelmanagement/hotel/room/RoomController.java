@@ -1,6 +1,5 @@
 package com.pk.hotelmanagement.hotel.room;
 
-import com.pk.hotelmanagement.users.vo.Interval;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +25,8 @@ public class RoomController {
     }
 
     @PostMapping("/available")
-    public ResponseEntity<?> getAvailableRooms(@RequestBody Interval interval) {
-        List<RoomDTO> rooms = roomService.getAvailableRooms(interval.getStartDate(), interval.getEndDate());
+    public ResponseEntity<?> getAvailableRooms(@RequestBody AvailableRoomData availableRoomData) {
+        List<RoomDTO> rooms = roomService.getAvailableRooms(availableRoomData);
         return ResponseEntity.ok(rooms);
     }
 }

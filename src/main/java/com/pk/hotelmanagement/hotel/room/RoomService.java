@@ -46,8 +46,8 @@ public class RoomService {
     }
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
-    public List<RoomDTO> getAvailableRooms(Date startDate, Date endDate) {
-        return roomRepository.getAvailableRooms(startDate, endDate);
+    public List<RoomDTO> getAvailableRooms(AvailableRoomData availableRoomData) {
+        return roomRepository.getAvailableRooms(availableRoomData.getHotelId(), availableRoomData.getInterval().getStartDate(), availableRoomData.getInterval().getEndDate());
     }
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
