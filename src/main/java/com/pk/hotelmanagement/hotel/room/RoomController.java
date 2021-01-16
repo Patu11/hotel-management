@@ -29,4 +29,10 @@ public class RoomController {
         List<RoomDTO> rooms = roomService.getAvailableRooms(availableRoomData);
         return ResponseEntity.ok(rooms);
     }
+
+    @GetMapping("/{hotelId}")
+    public ResponseEntity<?> getRoomsByHotelId(@PathVariable int hotelId) {
+        List<RoomDTO> rooms = roomService.getRoomsByHotelId(hotelId);
+        return ResponseEntity.ok(rooms);
+    }
 }
