@@ -58,4 +58,14 @@ public class RoomService {
         }
         return roomRepository.findAllById(roomsId);
     }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<RoomDTO> getRoomsByHotelId(int hotelId) {
+        List<RoomDTO> rooms = roomRepository.findAllByHotelId(hotelId);
+        if (rooms.isEmpty()) {
+            throw new NotFoundException("Rooms not found");
+        }
+        return rooms;
+    }
+
 }
