@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/photo")
@@ -22,6 +23,12 @@ public class PhotoController {
     public ResponseEntity<?> addPhoto(@RequestParam("file") MultipartFile file, @RequestParam("id") String roomId) throws IOException {
         photoService.addPhoto(file, roomId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{roomId}")
+    public ResponseEntity<?> getPhotosByRoomId(@PathVariable int roomId) {
+        List<String> urls = photoService.getPhotosByRoomId(roomId);
+        return ResponseEntity.ok(urls);
     }
 }
 

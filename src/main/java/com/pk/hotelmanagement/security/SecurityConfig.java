@@ -23,14 +23,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().configurationSource(httpServletRequest -> {
-            CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-            corsConfiguration.setAllowedMethods(Arrays.asList(
-                    HttpMethod.GET.name(),
-                    HttpMethod.HEAD.name(),
-                    HttpMethod.POST.name(),
-                    HttpMethod.PUT.name(),
-                    HttpMethod.DELETE.name()));
-            return corsConfiguration; }
+                    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+                    corsConfiguration.setAllowedMethods(Arrays.asList(
+                            HttpMethod.GET.name(),
+                            HttpMethod.HEAD.name(),
+                            HttpMethod.POST.name(),
+                            HttpMethod.PUT.name(),
+                            HttpMethod.DELETE.name()));
+                    return corsConfiguration;
+                }
         ).and()
                 .authorizeRequests()
                 .antMatchers("/users/register").permitAll()
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hotel").permitAll()  //for testing purposes
                 .antMatchers("/rooms", "/rooms/*").permitAll()   //for testing purposes
                 .antMatchers("/storages").permitAll()//for testing purposes
-                .antMatchers("/photo").permitAll()//for testing purposes
+                .antMatchers("/photo", "/photo/*").permitAll()//for testing purposes
                 .antMatchers("/hello").hasAuthority(Role.USER.name())
                 .antMatchers("/reservations", "/reservations/*").hasAuthority(Role.USER.name())
                 .antMatchers("/admin", "/admin/**").hasAuthority(Role.ADMIN.name())

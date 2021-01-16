@@ -1,6 +1,7 @@
 package com.pk.hotelmanagement.hotel.room.photo;
 
 import com.cloudinary.Cloudinary;
+import com.pk.hotelmanagement.hotel.NotFoundException;
 import com.pk.hotelmanagement.hotel.room.Room;
 import com.pk.hotelmanagement.hotel.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -48,6 +50,11 @@ public class PhotoService {
     }
 
     private String createUrl(byte[] fileBytes) {
+
+        if (fileBytes.length == 0) {
+            throw new IllegalArgumentException("No photo delivered");
+        }
+
         Map<String, String> uploadConfig = new HashMap<>();
 
         Map response = null;
@@ -57,5 +64,13 @@ public class PhotoService {
             e.printStackTrace();
         }
         return response.get("url").toString();
+    }
+
+    public List<String> getPhotosByRoomId(int roomId) {
+        List<String> urls = photoRepository.findAllByRoomId(roomId);
+        if (urls.isEmpty()) {
+            throw new NotFoundException("Photos not found");
+        }
+        return urls;
     }
 }
