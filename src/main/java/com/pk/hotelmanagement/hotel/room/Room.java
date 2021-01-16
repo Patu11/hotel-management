@@ -26,7 +26,7 @@ public class Room {
 
     @Column(nullable = false)
     private double price;
-    
+
     @Column
     private String description;
 
@@ -34,7 +34,7 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @ManyToMany(mappedBy = "rooms")
+    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")

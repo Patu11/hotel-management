@@ -68,4 +68,11 @@ public class RoomService {
         return rooms;
     }
 
+    @Transactional
+    public void removeRoom(int id) {
+        if (roomRepository.existsById(id)) {
+            roomRepository.deleteById(id);
+        }
+    }
+
 }

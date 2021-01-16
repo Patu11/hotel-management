@@ -35,4 +35,10 @@ public class RoomController {
         List<RoomDTO> rooms = roomService.getRoomsByHotelId(hotelId);
         return ResponseEntity.ok(rooms);
     }
+
+    @DeleteMapping("/{roomId}")
+    public ResponseEntity<?> removeRoom(@PathVariable int roomId) {
+        roomService.removeRoom(roomId);
+        return ResponseEntity.ok().build();
+    }
 }
