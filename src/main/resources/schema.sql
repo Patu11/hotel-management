@@ -1,9 +1,10 @@
-CREATE TABLE hotel(
-                    hotel_id INT NOT NULL AUTO_INCREMENT ,
-                    address VARCHAR(1000) NOT NULL,
-                    num_of_rooms INT NOT NULL,
-                    num_of_stars INTEGER NOT NULL,
-                    PRIMARY KEY(hotel_id)
+CREATE TABLE hotel
+(
+    hotel_id     INT           NOT NULL AUTO_INCREMENT,
+    address      VARCHAR(1000) NOT NULL,
+    num_of_rooms INT           NOT NULL,
+    num_of_stars INTEGER       NOT NULL,
+    PRIMARY KEY (hotel_id)
 );
 
 CREATE TABLE room
@@ -26,40 +27,55 @@ CREATE TABLE storage
     PRIMARY KEY (storage_id)
 );
 
-CREATE TABLE photo (
-                              photo_id INTEGER NOT NULL AUTO_INCREMENT,
-                              room_id INTEGER NOT NULL,
-                              url VARCHAR(500) NOT NULL,
-                              pic BLOB NOT NULL,
-                              creation_date DATE NOT NULL,
-                              PRIMARY KEY (photo_id)
+CREATE TABLE photo
+(
+    photo_id      INTEGER      NOT NULL AUTO_INCREMENT,
+    room_id       INTEGER      NOT NULL,
+    url           VARCHAR(500) NOT NULL,
+    pic           BLOB         NOT NULL,
+    creation_date DATE         NOT NULL,
+    PRIMARY KEY (photo_id)
 );
 
-CREATE TABLE product(
-    product_id INTEGER NOT NULL AUTO_INCREMENT,
-    storage_id INTEGER NOT NULL,
-    name VARCHAR(500) NOT NULL,
-    amount INTEGER,
+CREATE TABLE product
+(
+    product_id      INTEGER      NOT NULL AUTO_INCREMENT,
+    storage_id      INTEGER      NOT NULL,
+    name            VARCHAR(500) NOT NULL,
+    amount          INTEGER,
     expiration_date DATE,
     PRIMARY KEY (product_id)
 );
 
-CREATE TABLE comment(
-    comment_id INTEGER NOT NULL AUTO_INCREMENT,
-    room_id INTEGER NOT NULL,
-    content VARCHAR(1000) NOT NULL,
-    author VARCHAR(100) NOT NULL,
-    rating INTEGER NOT NULL,
+CREATE TABLE comment
+(
+    comment_id INTEGER       NOT NULL AUTO_INCREMENT,
+    room_id    INTEGER       NOT NULL,
+    content    VARCHAR(1000) NOT NULL,
+    author     VARCHAR(100)  NOT NULL,
+    rating     INTEGER       NOT NULL,
     PRIMARY KEY (comment_id)
 );
+CREATE TABLE room_reservation
+(
+    reservation_id int NOT NULL,
+    room_id int NOT NULL,
+    PRIMARY KEY(reservation_id, room_id),
+    FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
+    FOREIGN KEY (room_id) REFERENCES room(room_id)
+);
 
-ALTER TABLE comment ADD CONSTRAINT fk_room_comment FOREIGN KEY (room_id) REFERENCES room(room_id);
+ALTER TABLE comment
+    ADD CONSTRAINT fk_room_comment FOREIGN KEY (room_id) REFERENCES room (room_id);
 
-ALTER TABLE product ADD CONSTRAINT fk_storage_product FOREIGN KEY (storage_id) REFERENCES storage(storage_id);
+ALTER TABLE product
+    ADD CONSTRAINT fk_storage_product FOREIGN KEY (storage_id) REFERENCES storage (storage_id);
 
-ALTER TABLE photo ADD CONSTRAINT fk_room_photo FOREIGN KEY (room_id) REFERENCES room(room_id);
+ALTER TABLE photo
+    ADD CONSTRAINT fk_room_photo FOREIGN KEY (room_id) REFERENCES room (room_id);
 
-ALTER TABLE room ADD CONSTRAINT fk_hotel_room FOREIGN KEY (hotel_id) REFERENCES hotel(hotel_id);
+ALTER TABLE room
+    ADD CONSTRAINT fk_hotel_room FOREIGN KEY (hotel_id) REFERENCES hotel (hotel_id);
 ALTER TABLE room
     ADD CONSTRAINT fk_hotel_room FOREIGN KEY (hotel_id) REFERENCES hotel (hotel_id);
 
@@ -123,20 +139,20 @@ CREATE TABLE employees
 CREATE TABLE schedules
 (
     id          INTEGER AUTO_INCREMENT,
-    employee_id INTEGER NOT NULL,
-    start_date  DATETIME    NOT NULL,
-    end_Date    DATETIME    NOT NULL,
+    employee_id INTEGER  NOT NULL,
+    start_date  DATETIME NOT NULL,
+    end_Date    DATETIME NOT NULL,
     PRIMARY KEY (id)
 );
 
 ALTER TABLE roles
-    ADD CONSTRAINT fk_email FOREIGN KEY (email) REFERENCES users(email);
+    ADD CONSTRAINT fk_email FOREIGN KEY (email) REFERENCES users (email);
 
 ALTER TABLE persons
-    ADD CONSTRAINT fk_email_persons_users FOREIGN KEY (email) REFERENCES users(email);
+    ADD CONSTRAINT fk_email_persons_users FOREIGN KEY (email) REFERENCES users (email);
 
 ALTER TABLE regular_clients
-    ADD CONSTRAINT fk_email_regular_clients_users FOREIGN KEY (email) REFERENCES users(email);
+    ADD CONSTRAINT fk_email_regular_clients_users FOREIGN KEY (email) REFERENCES users (email);
 
 ALTER TABLE reservations
-    ADD CONSTRAINT fk_email_reservations_users FOREIGN KEY (email) REFERENCES users(email);
+    ADD CONSTRAINT fk_email_reservations_users FOREIGN KEY (email) REFERENCES users (email);
