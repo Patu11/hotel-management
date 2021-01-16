@@ -29,7 +29,7 @@ public class Employee {
     @JoinColumn(name = "id", referencedColumnName = "person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "employee", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Schedule> scheduleList;
 
     public void addSchedule(Schedule schedule) {

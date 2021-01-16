@@ -4,6 +4,7 @@ package com.pk.hotelmanagement.security;
 import com.pk.hotelmanagement.users.roles.Role;
 import com.pk.hotelmanagement.users.vo.Email;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,13 +14,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
+
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(httpServletRequest -> new CorsConfiguration().applyPermitDefaultValues()).and()
+        http.cors().configurationSource(httpServletRequest -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+            corsConfiguration.setAllowedMethods(Arrays.asList(
+                    HttpMethod.GET.name(),
+                    HttpMethod.HEAD.name(),
+                    HttpMethod.POST.name(),
+                    HttpMethod.PUT.name(),
+                    HttpMethod.DELETE.name()));
+            return corsConfiguration; }
+        ).and()
                 .authorizeRequests()
                 .antMatchers("/users/register").permitAll()
                 .antMatchers("/users/login").permitAll()
