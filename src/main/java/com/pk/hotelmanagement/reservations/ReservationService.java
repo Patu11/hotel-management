@@ -11,6 +11,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
@@ -26,9 +28,12 @@ public class ReservationService {
 
     @Transactional
     public void createReservation(ReservationData reservationData) {
-        if (reservationRepository.chechIfDateIntersets(reservationData.getInterval().getStartDate(), reservationData.getInterval().getEndDate()) == 1) {
+        int checkRoom = reservationRepository.chechIfDateIntersets(reservationData.getInterval().getStartDate(), reservationData.getInterval().getEndDate(), reservationData.getRoomIds());
+
+        if (checkRoom == 1) {
             throw new IllegalArgumentException("Selected rooms already reserved");
         }
+
         Reservation reservation = new Reservation();
         reservation.setStartDate(reservationData.getInterval().getStartDate());
         reservation.setEndDate(reservationData.getInterval().getEndDate());
