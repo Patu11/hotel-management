@@ -1,11 +1,14 @@
 package com.pk.hotelmanagement.reservations.controllers;
 
+import com.pk.hotelmanagement.reservations.ReservationDTO;
 import com.pk.hotelmanagement.reservations.ReservationData;
 import com.pk.hotelmanagement.reservations.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/reservations")
@@ -29,4 +32,12 @@ public class ReservationController {
         reservationService.deleteReservation(reservationId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping
+    public ResponseEntity<?> getByEmail() {
+        List<ReservationDTO> res = reservationService.getAllByEmail();
+        return ResponseEntity.ok(res);
+    }
+
+
 }

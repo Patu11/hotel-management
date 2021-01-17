@@ -13,6 +13,10 @@ public class Salary implements Serializable {
         this.salary = 0.0;
     }
 
+    public Salary(String salary) {
+        this(Double.parseDouble(salary));
+    }
+
     public Salary(double salary) {
         if (salary < 0) {
             throw new IllegalArgumentException("Salary can not be less than 0");

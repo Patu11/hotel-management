@@ -1,5 +1,6 @@
 package com.pk.hotelmanagement.reservations;
 
+import com.pk.hotelmanagement.hotel.NotFoundException;
 import com.pk.hotelmanagement.hotel.room.RoomService;
 import com.pk.hotelmanagement.security.SecurityConfig;
 import com.pk.hotelmanagement.users.User;
@@ -44,10 +45,29 @@ public class ReservationService {
         user.addReservation(reservation);
     }
 
+    @Transactional(readOnly = true)
+    public List<ReservationDTO> getAllByEmail() {
+        Email principal = SecurityConfig.getPrincipal();
+        List<ReservationDTO> res = reservationRepository.getAllReservationsByEmail(principal.getAsString());
+        if (res.isEmpty()) {
+            throw new NotFoundException("Reservations not found");
+        }
+        return res;
+    }
+
     @Transactional
     public void deleteReservation(int reservationId) {
         if (reservationRepository.findById(reservationId).isPresent()) {
             reservationRepository.deleteById(reservationId);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ReservationDTO> getAll() {
+        List<ReservationDTO> res = reservationRepository.getAll();
+        if (res.isEmpty()) {
+            throw new NotFoundException("Reservations not found");
+        }
+        return res;
     }
 }

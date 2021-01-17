@@ -37,7 +37,7 @@ public class Room {
     @ManyToMany(mappedBy = "rooms", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "room", cascade = CascadeType.REMOVE)
     private List<Photo> photos = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "room")
