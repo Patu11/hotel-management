@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,7 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
-    @Transactional
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public Hotel getHotel(int hotelId) {
         Optional<Hotel> hotel = hotelRepository.findById(hotelId);
         if (hotel.isEmpty()) {
@@ -33,4 +34,23 @@ public class HotelService {
         }
         return hotel.get();
     }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public HotelDTO getHotelDTO(int hotelId) {
+        Optional<HotelDTO> hotel = hotelRepository.findDTOById(hotelId);
+        if (hotel.isEmpty()) {
+            throw new NotFoundException("Hotel not found");
+        }
+        return hotel.get();
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<HotelDTO> getAllHotels() {
+        List<HotelDTO> hotels = hotelRepository.finAllHotels();
+        if (hotels.isEmpty()) {
+            throw new NotFoundException("Hotels not found");
+        }
+        return hotels;
+    }
+
 }

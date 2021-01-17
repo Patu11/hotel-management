@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/users/register").permitAll()
                 .antMatchers("/users/login").permitAll()
-                .antMatchers("/hotel").permitAll()  //for testing purposes
+                .antMatchers("/hotel", "/hotel/*").permitAll()  //for testing purposes
                 .antMatchers("/rooms", "/rooms/*").permitAll()   //for testing purposes
                 .antMatchers("/storages").permitAll()//for testing purposes
                 .antMatchers("/photo", "/photo/*").permitAll()//for testing purposes
