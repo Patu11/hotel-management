@@ -18,7 +18,7 @@ public class Token {
                 .setSubject(user.getEmail().toString())
                 .claim("role", user.getRole().getName().name())
                 .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + 600000)) // 10 minutes
+                .setExpiration(new Date(now + 3600000)) // 10 minutes
                 .signWith(key).compact();
     }
 }
