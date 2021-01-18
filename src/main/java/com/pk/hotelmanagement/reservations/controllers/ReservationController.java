@@ -27,17 +27,9 @@ public class ReservationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/{reservationId}")
-    public ResponseEntity<?> deleteReservation(@PathVariable int reservationId) {
-        reservationService.deleteReservation(reservationId);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
     @GetMapping
     public ResponseEntity<?> getByEmail() {
         List<ReservationDTO> res = reservationService.getAllByEmail();
         return ResponseEntity.ok(res);
     }
-
-
 }

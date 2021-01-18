@@ -20,6 +20,6 @@ interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     @Query(value = "SELECT room_id AS roomId, start_date AS startDate, end_date AS endDate FROM reservations JOIN room_reservation ON reservations.reservation_id = room_reservation.reservation_id WHERE email = :email", nativeQuery = true)
     List<ReservationDTO> getAllReservationsByEmail(@Param("email") String email);
 
-    @Query(value = "SELECT room_id AS roomId, start_date AS startDate, end_date AS endDate, email FROM reservations JOIN room_reservation ON reservations.reservation_id = room_reservation.reservation_id", nativeQuery = true)
+    @Query(value = "SELECT room_id AS roomId, start_date AS startDate, end_date AS endDate, email, reservations.reservation_id AS reservationID FROM reservations JOIN room_reservation ON reservations.reservation_id = room_reservation.reservation_id", nativeQuery = true)
     List<ReservationDTO> getAll();
 }

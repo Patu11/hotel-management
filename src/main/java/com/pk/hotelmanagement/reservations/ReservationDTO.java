@@ -11,4 +11,6 @@ public interface ReservationDTO {
     Date getEndDate();
 
     String getEmail();
+
+    int getReservationId();
 }
